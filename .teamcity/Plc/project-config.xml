@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" uuid="e9a0a78b-9359-497e-b0ba-03a38023da6f" xsi:noNamespaceSchemaLocation="http://www.jetbrains.com/teamcity/schemas/9.0/project-config.xsd">
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" archived="true" uuid="e9a0a78b-9359-497e-b0ba-03a38023da6f" xsi:noNamespaceSchemaLocation="http://www.jetbrains.com/teamcity/schemas/9.0/project-config.xsd">
   <name>PLC++</name>
   <parameters />
   <cleanup />
