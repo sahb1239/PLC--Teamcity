@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<build-type xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" uuid="7ec7d354-9fa9-44c0-86fa-c4166779e4fd" xsi:noNamespaceSchemaLocation="http://www.jetbrains.com/teamcity/schemas/9.0/project-config.xsd">
+  <name>Build</name>
+  <description />
+  <settings>
+    <parameters />
+    <build-runners>
+      <runner id="RUNNER_5" name="Delete parser" type="simpleRunner">
+        <parameters>
+          <param name="script.content"><![CDATA[mkdir parser
+rmdir parser /S /Q]]></param>
+          <param name="teamcity.build.workingDir" value="PLC++/src/dk/aau/sw402F15" />
+          <param name="teamcity.step.mode" value="default" />
+          <param name="use.custom.script" value="true" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_4" name="Create parser" type="simpleRunner">
+        <parameters>
+          <param name="command.executable" value="java" />
+          <param name="command.parameters" value="-jar &quot;%env.sablecc%/sablecc.jar&quot; -d PLC++/src/ PLC++/Grammar" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_3" name="" type="JPS">
+        <parameters>
+          <param name="iprInfoRunParam"><![CDATA[<iprInfo path-to-ipr="PLC++" should-load-iml="true">
+  <Jdk name="1.7" path-to-library="%env.JDK_17%" is-used="true" type="JavaSDK" path-to-jdk="%env.JDK_17%">
+    <Pattern value="jre/lib/*.jar" />
+    <ExternalAnnotationPattern value="%teamcity.tool.idea%/lib/jdkAnnotations.jar" />
+  </Jdk>
+</iprInfo>]]></param>
+          <param name="jvmArgs" value="-Xmx256m" />
+          <param name="runConfigurations" value="Run Tests" />
+          <param name="target.jdk.home" value="%env.JDK_17%" />
+          <param name="teamcity.step.mode" value="default" />
+          <param name="teamcity.tests.runRiskGroupTestsFirst" value="recentlyFailed,newAndModified" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_8" name="" type="Duplicator">
+        <parameters>
+          <param name="duplicates.runner.bound" value="10" />
+          <param name="duplicates.runner.discard" value="0" />
+          <param name="duplicates.runner.literal" value="true" />
+          <param name="duplicates.runner.method" value="true" />
+          <param name="duplicates.runner.type" value="true" />
+          <param name="duplicates.runner.visibility" value="true" />
+          <param name="includeExclude.patterns" value="-:src/dk/aau/sw402F15/parser/*" />
+          <param name="iprInfoRunParam" value="&lt;iprInfo path-to-ipr=&quot;PLC++&quot; should-load-iml=&quot;true&quot; /&gt;" />
+          <param name="jvmArgs" value="-Xmx512m -XX:MaxPermSize=150m" />
+          <param name="target.jdk.home" value="%env.JDK_17%" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+    </build-runners>
+    <vcs-settings>
+      <vcs-entry-ref root-id="Plc_Plc" />
+      <vcs-entry-ref root-id="Plc_Configuration" />
+    </vcs-settings>
+    <requirements />
+    <build-triggers>
+      <build-trigger id="vcsTrigger" type="vcsTrigger">
+        <parameters>
+          <param name="branchFilter" value="+:*" />
+          <param name="groupCheckinsByCommitter" value="true" />
+          <param name="perCheckinTriggering" value="true" />
+          <param name="quietPeriodMode" value="DO_NOT_USE" />
+        </parameters>
+      </build-trigger>
+    </build-triggers>
+    <build-extensions>
+      <extension id="perfmon" type="perfmon">
+        <parameters />
+      </extension>
+    </build-extensions>
+    <cleanup />
+  </settings>
+</build-type>
+
